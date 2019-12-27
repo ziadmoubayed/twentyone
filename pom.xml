@@ -13,6 +13,8 @@
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.release.version>2.5.3</maven.release.version>
         <maven.assembly.version>3.1.1</maven.assembly.version>
+        <jacoco.version>0.8.5</jacoco.version>
+        <sonar.version>3.7.0.1746</sonar.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <guava.version>28.1-jre</guava.version>
@@ -104,6 +106,30 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar.version}</version>
             </plugin>
         </plugins>
     </build>
