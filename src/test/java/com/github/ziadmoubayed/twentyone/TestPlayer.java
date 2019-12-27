@@ -70,4 +70,18 @@ public class TestPlayer {
         player.getHand().hit(Card.SEVEN, 8);
         assertFalse(player.canSplit());
     }
+
+    @Test
+    public void shouldNotStandIfBusted() {
+        player.getHand().hit(Card.TEN, 10);
+        player.getHand().hit(Card.TEN, 10);
+        player.getHand().hit(Card.TEN, 10);
+        player.getHand().stand();
+        assertFalse(player.isStanding());
+    }
+    
+    @Test
+    public void getNameShouldReturnName() {
+        assertEquals("test", new Player("test").getName());
+    }
 }

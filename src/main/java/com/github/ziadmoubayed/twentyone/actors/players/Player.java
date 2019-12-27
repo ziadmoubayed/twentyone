@@ -66,7 +66,7 @@ public class Player {
      * @return
      */
     public boolean canSplit() {
-        return (hand != null && (hand.getCards().size() == 2 && hand.getCards().get(0) == hand.getCards().get(1)));
+        return (hand.getCards().size() == 2 && hand.getCards().get(0) == hand.getCards().get(1));
     }
 
     /**
@@ -76,7 +76,7 @@ public class Player {
      * @return
      */
     public boolean canHit() {
-        return (hand != null && hand.canHit()) || (getSplitHand().isPresent() && getSplitHand().get().canHit());
+        return (hand.canHit()) || (getSplitHand().isPresent() && getSplitHand().get().canHit());
     }
 
     /**
@@ -85,6 +85,6 @@ public class Player {
      * @return
      */
     public boolean isStanding() {
-        return (hand != null && hand.isStanding()) || (getSplitHand().isPresent() && getSplitHand().get().isStanding());
+        return (hand.isStanding()) || (getSplitHand().isPresent() && getSplitHand().get().isStanding());
     }
 }

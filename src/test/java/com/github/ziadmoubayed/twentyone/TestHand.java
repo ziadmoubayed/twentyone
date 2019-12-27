@@ -14,7 +14,7 @@ public class TestHand {
     Hand hand;
 
     @Before
-    public void init(){
+    public void init() {
         hand = new Hand();
     }
 
@@ -58,5 +58,13 @@ public class TestHand {
         assertEquals(0, hand.getPoints());
         hand.hit(Card.EIGHT, 8);
         assertEquals(8, hand.getPoints());
+    }
+
+    @Test
+    public void cardHitsShouldBeEqualIfTheyHaveSamePointsAndCard() {
+        hand.hit(Card.TEN, 10);
+        var newHand = new Hand();
+        newHand.hit(Card.TEN, 10);
+        assertEquals(hand.getHits(), newHand.getHits());
     }
 }

@@ -1,5 +1,6 @@
 package com.github.ziadmoubayed.twentyone;
 
+import com.github.ziadmoubayed.twentyone.actors.Card;
 import com.github.ziadmoubayed.twentyone.actors.players.Bank;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class TestBank {
     Bank bank;
 
     @Before
-    public void init(){
+    public void init() {
         bank = new Bank();
     }
 
@@ -48,5 +49,15 @@ public class TestBank {
     @Test
     public void pointsShouldBeEqualToZero() {
         assertEquals(0, bank.getPoints());
+    }
+
+    @Test
+    public void bankCanNotHitAfterThreshold() {
+        bank.getHand().hit(Card.TEN, 10);
+        bank.getHand().hit(Card.TEN, 10);
+        bank.getHand().hit(Card.TEN, 10);
+        assertFalse(bank.canHit());
+        assertTrue(bank.getHand().isBusted());
+        assertFalse(bank.isStanding());
     }
 }
