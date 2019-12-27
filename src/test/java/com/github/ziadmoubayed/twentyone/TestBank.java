@@ -1,4 +1,4 @@
-package universe;
+package com.github.ziadmoubayed.twentyone;
 
 import com.github.ziadmoubayed.twentyone.actors.players.Bank;
 import org.junit.Before;

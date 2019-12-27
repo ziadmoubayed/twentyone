@@ -1,4 +1,4 @@
-package universe;
+package com.github.ziadmoubayed.twentyone;
 
 import com.github.ziadmoubayed.twentyone.actors.Card;
 import org.junit.Test;
