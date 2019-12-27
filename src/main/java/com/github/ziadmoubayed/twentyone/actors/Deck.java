@@ -35,8 +35,7 @@ public class Deck {
     public Card deal() {
         //we are assuming that the deck will never be empty
         // because we have a limit of three players
-        Card lastCard = cards.remove(cards.size() - 1);
-        return lastCard;
+        return cards.remove(cards.size() - 1);
     }
 
     public List<Card> getCards() {
