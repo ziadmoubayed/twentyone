@@ -1,5 +1,4 @@
-package com.github.ziadmoubayed.twentyone.engine.userio;
-
+package com.github.ziadmoubayed.twentyone.engine.feedback.input;
 
 import com.github.ziadmoubayed.twentyone.actors.PlayTerms;
 import com.github.ziadmoubayed.twentyone.actors.players.Player;

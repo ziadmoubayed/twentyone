@@ -1,4 +1,4 @@
-package com.github.ziadmoubayed.twentyone.engine.userio;
+package com.github.ziadmoubayed.twentyone.engine.feedback.output;
 
 
 import com.github.ziadmoubayed.twentyone.actors.Card;
