@@ -1,4 +1,4 @@
-package com.github.ziadmoubayed.twentyone;
+package com.github.ziadmoubayed.twentyone.universe;
 
 import com.github.ziadmoubayed.twentyone.actors.Card;
 import com.github.ziadmoubayed.twentyone.actors.Deck;

@@ -16,8 +16,13 @@ public class ConsoleInputDriver implements InputDriver {
 
     @Override
     public List<Player> getPlayers() {
-        return Arrays.stream(readInput().split(Constants.PLAYER_DELIMITER))
-                .map(Player::new).collect(Collectors.toList());
+        var choiceStr = readInput();
+        try {
+            return Arrays.stream(choiceStr.split(Constants.PLAYER_DELIMITER))
+                    .map(Player::new).collect(Collectors.toList());
+        } catch (Exception e) {
+            throw new InvalidChoiceException(String.format("Invalid Choice [%s]", choiceStr));
+        }
     }
 
     @Override
