@@ -66,7 +66,7 @@ public class Player {
      * @return
      */
     public boolean canSplit() {
-        return (hand.getCards().size() == 2 && hand.getCards().get(0) == hand.getCards().get(1));
+        return (hand.getCards().size() == 2 && hand.getCards().get(0) == hand.getCards().get(1) && getSplitHand().isEmpty());
     }
 
     /**
