@@ -49,7 +49,7 @@ public class PlayerTurnProcessor implements TurnProcessor {
     }
 
     private void playHand(Player player, Hand hand, List<PlayTerms> terms) {
-        outputDriver.notifyPlayerTerms(player.getName(), hand.getPoints(), terms);
+        outputDriver.askForPlayerTerms(player.getName(), hand.getPoints(), terms);
         var choice = Failsafe.with(Fallback.of(PlayTerms.BUST), retryPolicy).get(inputDriver::getPlayerChoice);
         processChoice(player, hand, choice);
     }

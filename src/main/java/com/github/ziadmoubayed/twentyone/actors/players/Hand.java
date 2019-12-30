@@ -107,7 +107,6 @@ public class Hand {
 
     /**
      * TODO find a better way to bust
-     *
      */
     public void bust() {
         this.hits.add(new CardHit(Card.TEN, Integer.MAX_VALUE));
