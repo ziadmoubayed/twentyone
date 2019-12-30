@@ -21,7 +21,7 @@ public class ConsoleInputDriver implements InputDriver {
             return Arrays.stream(choiceStr.split(Constants.PLAYER_DELIMITER))
                     .map(Player::new).collect(Collectors.toList());
         } catch (Exception e) {
-            throw new InvalidChoiceException(String.format("Invalid Choice [%s]", choiceStr));
+            throw new InvalidChoiceException(choiceStr);
         }
     }
 
@@ -31,7 +31,7 @@ public class ConsoleInputDriver implements InputDriver {
         try {
             return PlayTerms.valueOf(choiceStr);
         } catch (IllegalArgumentException e) {
-            throw new InvalidChoiceException(String.format("Invalid Choice [%s]", choiceStr));
+            throw new InvalidChoiceException(choiceStr);
         }
     }
 
@@ -43,7 +43,7 @@ public class ConsoleInputDriver implements InputDriver {
             if (points.contains(choice)) return choice;
             else throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            throw new InvalidChoiceException(String.format("Invalid Choice [%s]", choiceStr));
+            throw new InvalidChoiceException(choiceStr);
         }
     }
 

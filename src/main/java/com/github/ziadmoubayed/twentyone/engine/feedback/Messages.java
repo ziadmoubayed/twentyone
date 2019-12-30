@@ -2,6 +2,11 @@ package com.github.ziadmoubayed.twentyone.engine.feedback;
 
 public class Messages {
 
+    /**
+     *
+     */
+    private Messages() {}
+
     public static final String GREETING = "Twenty One";
     public static final String PLAYER_NAMES = "Type the players' names separated by semi column";
     public static final String PLAYER_TURN = "Player %s's turn. You have %d points. Choose %s";
