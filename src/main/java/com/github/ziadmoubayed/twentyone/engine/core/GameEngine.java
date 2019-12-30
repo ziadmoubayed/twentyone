@@ -43,12 +43,14 @@ public class GameEngine implements Runnable {
         deck.shuffle();
         outputDriver.startGame(gameName);
         playersTurn();
-        //all player are done - banks turn
-        if (players.stream().anyMatch(Player::isStanding)) {
-            banksTurn();
+        var standingPlayers = players.stream().filter(Player::isStanding).collect(Collectors.toList());
+        if (standingPlayers.isEmpty()) {
+            outputDriver.notifyBankWon();
+            return;
         }
-        chooseWinners();
-        outputDriver.notifyGameEnded(gameName);
+        //all player are done - banks turn
+        banksTurn();
+        chooseWinners(standingPlayers);
     }
 
     /**
@@ -76,13 +78,8 @@ public class GameEngine implements Runnable {
     /**
      * Winners are chosen based on the collected points
      */
-    private void chooseWinners() {
-        if (bank.getHand().isBusted()) {
-            players.stream().filter(Player::isStanding)
-                    .forEach(player -> outputDriver.notifyWinnerAndLoser(player, bank));
-        } else {
-            players.stream().filter(Player::isStanding).forEach(this::checkHands);
-        }
+    private void chooseWinners(List<Player> standingPlayers) {
+        standingPlayers.forEach(this::checkHands);
     }
 
     /**
