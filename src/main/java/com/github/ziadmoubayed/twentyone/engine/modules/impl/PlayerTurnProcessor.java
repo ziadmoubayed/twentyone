@@ -10,7 +10,6 @@ import com.github.ziadmoubayed.twentyone.engine.feedback.input.InvalidChoiceExce
 import com.github.ziadmoubayed.twentyone.engine.feedback.output.OutputDriver;
 import com.github.ziadmoubayed.twentyone.engine.modules.TurnProcessor;
 import net.jodah.failsafe.Failsafe;
-import net.jodah.failsafe.FailsafeExecutor;
 import net.jodah.failsafe.Fallback;
 import net.jodah.failsafe.RetryPolicy;
 import net.jodah.failsafe.event.ExecutionAttemptedEvent;
@@ -18,6 +17,8 @@ import net.jodah.failsafe.event.ExecutionCompletedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.github.ziadmoubayed.twentyone.utils.Constants.MAX_INVALID_CHOICES;
 
 public class PlayerTurnProcessor implements TurnProcessor {
 
@@ -29,8 +30,7 @@ public class PlayerTurnProcessor implements TurnProcessor {
             .handle(InvalidChoiceException.class)
             .onRetry(this::handleInvalidChoice)
             .onFailure(this::notifyBust)
-            .withMaxRetries(3);
-    private FailsafeExecutor<Object> failSafeExecutor = Failsafe.with(Fallback.of(PlayTerms.BUST), retryPolicy);
+            .withMaxRetries(MAX_INVALID_CHOICES);
 
     public PlayerTurnProcessor(InputDriver inputDriver, OutputDriver outputDriver, Deck deck) {
         this.inputDriver = inputDriver;
@@ -50,7 +50,7 @@ public class PlayerTurnProcessor implements TurnProcessor {
 
     private void playHand(Player player, Hand hand, List<PlayTerms> terms) {
         outputDriver.notifyPlayerTerms(player.getName(), hand.getPoints(), terms);
-        var choice = failSafeExecutor.get(inputDriver::getPlayerChoice);
+        var choice = Failsafe.with(Fallback.of(PlayTerms.BUST), retryPolicy).get(inputDriver::getPlayerChoice);
         processChoice(player, hand, choice);
     }
 
@@ -65,6 +65,9 @@ public class PlayerTurnProcessor implements TurnProcessor {
             case SPLIT:
                 split(player);
                 break;
+            case BUST:
+                player.getHand().bust();
+                break;
             default:
                 break;
         }
@@ -74,12 +77,16 @@ public class PlayerTurnProcessor implements TurnProcessor {
     public void choosePoints(Player player, Hand hand, Card card) {
         if (card.getPoints().size() > 1) {
             outputDriver.notifyChoosePoints(player.getName(), card.getPoints());
-            var points = failSafeExecutor.get(() -> inputDriver.getPlayerPoints(card.getPoints()));
+            var points = Failsafe.with(Fallback.of(Integer.MAX_VALUE), retryPolicy).get(() -> inputDriver.getPlayerPoints(card.getPoints()));
             hand.hit(card, points);
         } else {
             hand.hit(card, new ArrayList<>(card.getPoints()).get(0));
         }
-        outputDriver.notifyCardAndPoints(player, card, hand);
+        if (hand.isBusted()) {
+            outputDriver.notifyBust();
+        } else {
+            outputDriver.notifyCardAndPoints(player, card, hand);
+        }
     }
 
     private void split(Player player) {
