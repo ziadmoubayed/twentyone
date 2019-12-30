@@ -4,6 +4,7 @@ import com.github.ziadmoubayed.twentyone.actors.Card;
 import com.github.ziadmoubayed.twentyone.actors.PlayTerms;
 import com.github.ziadmoubayed.twentyone.actors.players.Hand;
 import com.github.ziadmoubayed.twentyone.actors.players.Player;
+import static com.github.ziadmoubayed.twentyone.engine.feedback.Messages.*;
 
 import java.util.List;
 import java.util.Set;
@@ -12,22 +13,22 @@ public class ConsoleOutputDriver implements OutputDriver {
 
     @Override
     public void headers() {
-        print("Twenty One");
+        print(GREETING);
     }
 
     @Override
     public void askForPlayersNames() {
-        print("Type the players' names separated by semi column");
+        print(PLAYER_NAMES);
     }
 
     @Override
     public void notifyPlayerTerms(String name, int points, List<PlayTerms> termsList) {
-        print("Player %s's turn. You have %d points. Choose %s", name, points, termsList);
+        print(PLAYER_TURN, name, points, termsList);
     }
 
     @Override
     public void startGame(String gameName) {
-        print("Starting %s", gameName);
+        print(START_GAME, gameName);
     }
 
     @Override
@@ -37,37 +38,37 @@ public class ConsoleOutputDriver implements OutputDriver {
 
     @Override
     public void notifyBust() {
-        print("You are out");
+        print(NOTIFY_BUST);
     }
 
     @Override
     public void notifyChoosePoints(String name, Set<Integer> points) {
-        print("What which point you want to use: %s", points);
+        print(NOTIFY_CHOOSE_POINTS, points);
     }
 
     @Override
     public void notifyCardAndPoints(Player player, Card card, Hand hand) {
-        print("%s got %s and now has score %s", player.getName(), card, hand.getPoints());
+        print(NOTIFY_CARD_POINTS, player.getName(), card, hand.getPoints());
     }
 
     @Override
     public void notifyBankTurn() {
-        print("The Bank will play now");
+        print(NOTIFY_BANK_TURN);
     }
 
     @Override
     public void notifyGameEnded(String gameName) {
-        print("%s Ended.", gameName);
+        print(NOTIFY_GAME_ENDED, gameName);
     }
 
     @Override
     public void notifyWinnerAndLoser(Player winner, Player loser) {
-        print("%s won against %s", winner.getName(), loser.getName());
+        print(NOTIFY_WINNER_LOSER, winner.getName(), loser.getName());
     }
 
     @Override
     public void notifyCardSplit(Player player) {
-        print("%s split pair of %s", player.getName(), player.getHand().getCards().get(0));
+        print(NOTIFY_CARD_SPLIT, player.getName(), player.getHand().getCards().get(0));
     }
 
     /**

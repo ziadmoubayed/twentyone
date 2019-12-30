@@ -45,9 +45,7 @@ public class PlayerTurnProcessor implements TurnProcessor {
             terms.add(PlayTerms.SPLIT);
         }
         playHand(player, player.getHand(), terms);
-        player.getSplitHand().ifPresent(splitHand -> {
-            playHand(player, splitHand, terms);
-        });
+        player.getSplitHand().ifPresent(splitHand -> playHand(player, splitHand, terms));
     }
 
     private void playHand(Player player, Hand hand, List<PlayTerms> terms) {
