@@ -71,6 +71,11 @@ public class ConsoleOutputDriver implements OutputDriver {
         print(NOTIFY_CARD_SPLIT, player.getName(), player.getHand().getCards().get(0));
     }
 
+    @Override
+    public void notifyBankWon() {
+        print(NOTIFY_BANK_WON);
+    }
+
     /**
      * Helper method to output formatted text to the console
      *

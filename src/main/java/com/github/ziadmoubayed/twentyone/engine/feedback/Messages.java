@@ -7,6 +7,7 @@ public class Messages {
      */
     private Messages() {}
 
+
     public static final String GREETING = "Twenty One";
     public static final String PLAYER_NAMES = "Type the players' names separated by semi column";
     public static final String PLAYER_TURN = "Player %s's turn. You have %d points. Choose %s";
@@ -18,4 +19,5 @@ public class Messages {
     public static final String NOTIFY_GAME_ENDED = "%s Ended.";
     public static final String NOTIFY_WINNER_LOSER = "%s won against %s";
     public static final String NOTIFY_CARD_SPLIT = "%s split pair of %s";
+    public static final String NOTIFY_BANK_WON = "Bank won all players";
 }

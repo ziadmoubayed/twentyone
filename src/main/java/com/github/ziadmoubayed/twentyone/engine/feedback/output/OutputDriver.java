@@ -22,4 +22,5 @@ public interface OutputDriver {
     void notifyGameEnded(String gameName);
     void notifyWinnerAndLoser(Player winner, Player loser);
     void notifyCardSplit(Player player);
+    void notifyBankWon();
 }
