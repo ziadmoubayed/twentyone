@@ -42,11 +42,15 @@ If all players are ready (stand or bust) the bank must play (only if there are p
 When a player gets two identical cards, she can choose to ‘split’. This means that the cards are placed next to each other on the table and the player can play twice, one game per card.3
 
 The number of points for the cards is as follows:
->King 3 points, queen 2 points, jack 1 point.
->Ace is 1 or 11 points of your choice.
->Cards 2 to 10 have their normal point value.
->The ‘suit’ of the card is not important.
->The Joker does not play
+> King 3 points, queen 2 points, jack 1 point.
+
+> Ace is 1 or 11 points of your choice.
+
+> Cards 2 to 10 have their normal point value.
+
+> The ‘suit’ of the card is not important.
+
+> The Joker does not play
 
 ### Todos
 
