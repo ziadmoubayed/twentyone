@@ -7,7 +7,6 @@ import com.github.ziadmoubayed.twentyone.actors.PlayTerms;
 import com.github.ziadmoubayed.twentyone.actors.players.Player;
 import com.github.ziadmoubayed.twentyone.engine.feedback.input.InputDriver;
 import com.github.ziadmoubayed.twentyone.engine.feedback.input.InvalidChoiceException;
-import com.github.ziadmoubayed.twentyone.engine.feedback.output.ConsoleOutputDriver;
 import com.github.ziadmoubayed.twentyone.engine.feedback.output.OutputDriver;
 import com.github.ziadmoubayed.twentyone.engine.modules.impl.PlayerTurnProcessor;
 import org.junit.Before;
@@ -16,13 +15,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.List;
 import java.util.Set;
 
-import static com.github.ziadmoubayed.twentyone.utils.Constants.MAX_INVALID_CHOICES;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -61,7 +56,7 @@ public class TestPlayerTurnModule {
     }
 
     @Test
-    public void shouldIncreasePlayerPointsBasedOnChoice(){
+    public void shouldIncreasePlayerPointsBasedOnChoice() {
         when(inputDriver.getPlayerChoice()).thenReturn(PlayTerms.HIT);
         when(deck.deal()).thenReturn(Card.ACE);
         when(inputDriver.getPlayerPoints(Set.of(1, 11))).thenReturn(1);
@@ -73,7 +68,7 @@ public class TestPlayerTurnModule {
     }
 
     @Test
-    public void shouldStandPlayerChoiceIsStand(){
+    public void shouldStandPlayerChoiceIsStand() {
         when(inputDriver.getPlayerChoice()).thenReturn(PlayTerms.STAND);
         when(deck.deal()).thenReturn(Card.ACE);
         new PlayerTurnProcessor(inputDriver, outputDriver, deck).accept(player);

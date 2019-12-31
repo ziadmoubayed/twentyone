@@ -61,7 +61,7 @@ public class GameEngine implements Runnable {
         do {
             playing = players.stream().filter(Player::canHit)
                     .collect(Collectors.toList());
-            playing.forEach(new PlayerTurnProcessor(inputDriver, outputDriver, deck)::accept);
+            playing.forEach(new PlayerTurnProcessor(inputDriver, outputDriver, deck));
         } while (!playing.isEmpty());
     }
 

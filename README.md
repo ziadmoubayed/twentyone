@@ -11,19 +11,19 @@ The normal flow of the game is as follows:
 
 ## Installation
 
-You can run Twenty One using Dockerfile or building from source.
+You can run Twenty One using Docker or building from source.
 
 ### Docker (Recommended)
 Twenty One is very easy to install and deploy in a Docker container.
 
 ```sh
-$ docker pull docker.pkg.github.com/ziadmoubayed/twentyone/twentyone:1.1
+$ docker pull ziadm/twentyone
 ```
 This will pull the image and the necessary dependencies.
 Note: You need to start the docker in interactive mode to use the REPL.
 
 ```sh
-$ docker run -it docker.pkg.github.com/ziadmoubayed/twentyone/twentyone:1.1
+$ docker run -it ziadm/twentyone
 ```
 
 ### Building for source

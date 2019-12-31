@@ -17,12 +17,12 @@ public class TestConsoleInputDriver {
     InputDriver inputDriver;
 
     @Before
-    public void init(){
+    public void init() {
 
     }
 
     @Test(expected = InvalidChoiceException.class)
-    public void shouldFailIfPlayerChoiceIsNotFromPlayerTerms(){
+    public void shouldFailIfPlayerChoiceIsNotFromPlayerTerms() {
         String data = "asd";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         inputDriver = new ConsoleInputDriver();
@@ -30,7 +30,7 @@ public class TestConsoleInputDriver {
     }
 
     @Test(expected = InvalidChoiceException.class)
-    public void shouldFailIfPlayerInputsAWrongNumber(){
+    public void shouldFailIfPlayerInputsAWrongNumber() {
         String data = "asd";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         inputDriver = new ConsoleInputDriver();
@@ -38,7 +38,7 @@ public class TestConsoleInputDriver {
     }
 
     @Test()
-    public void shouldParsePlayersSeperatedBySemiColumn(){
+    public void shouldParsePlayersSeperatedBySemiColumn() {
         String data = "PLAYER1;PLAYER2";
         System.setIn(new ByteArrayInputStream(data.getBytes()));
         inputDriver = new ConsoleInputDriver();

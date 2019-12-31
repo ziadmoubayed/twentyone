@@ -4,7 +4,6 @@ import com.github.ziadmoubayed.twentyone.actors.Card;
 import com.github.ziadmoubayed.twentyone.actors.Deck;
 import com.github.ziadmoubayed.twentyone.actors.PlayTerms;
 import com.github.ziadmoubayed.twentyone.actors.players.Bank;
-import com.github.ziadmoubayed.twentyone.actors.players.Hand;
 import com.github.ziadmoubayed.twentyone.actors.players.Player;
 import com.github.ziadmoubayed.twentyone.engine.core.GameEngine;
 import com.github.ziadmoubayed.twentyone.engine.feedback.input.InputDriver;
@@ -13,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;

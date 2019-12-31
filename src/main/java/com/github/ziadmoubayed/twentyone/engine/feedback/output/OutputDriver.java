@@ -11,16 +11,26 @@ import java.util.Set;
 
 public interface OutputDriver {
     void headers();
+
     void askForPlayersNames();
-    void notifyPlayerTerms(String name, int points, List<PlayTerms> terms);
+
+    void askForPlayerTerms(String name, int points, List<PlayTerms> terms);
+
     void startGame(String gameName);
+
     void notifyError(String message);
+
     void notifyBust();
+
     void notifyChoosePoints(String name, Set<Integer> points);
+
     void notifyCardAndPoints(Player player, Card card, Hand hand);
+
     void notifyBankTurn();
-    void notifyGameEnded(String gameName);
+
     void notifyWinnerAndLoser(Player winner, Player loser);
+
     void notifyCardSplit(Player player);
+
     void notifyBankWon();
 }

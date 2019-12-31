@@ -8,6 +8,8 @@ import java.util.Set;
 
 public interface InputDriver {
     List<Player> getPlayers();
+
     PlayTerms getPlayerChoice();
+
     int getPlayerPoints(Set<Integer> points);
 }
