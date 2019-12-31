@@ -79,7 +79,7 @@ public class TestPlayer {
         player.getHand().stand();
         assertFalse(player.isStanding());
     }
-    
+
     @Test
     public void getNameShouldReturnName() {
         assertEquals("test", new Player("test").getName());

@@ -7,6 +7,11 @@ import com.github.ziadmoubayed.twentyone.actors.players.Player;
 import com.github.ziadmoubayed.twentyone.engine.feedback.output.OutputDriver;
 import com.github.ziadmoubayed.twentyone.engine.modules.TurnProcessor;
 
+/**
+ * Bank Turn Consumer
+ * Bank deals until threshold is reached.
+ * It will choose the points that result in the highest score without busting the hand.
+ */
 public class BankTurnProcessor implements TurnProcessor {
 
     private final Deck deck;

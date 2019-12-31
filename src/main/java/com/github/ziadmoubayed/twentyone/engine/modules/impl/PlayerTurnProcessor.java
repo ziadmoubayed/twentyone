@@ -20,6 +20,12 @@ import java.util.List;
 
 import static com.github.ziadmoubayed.twentyone.utils.Constants.MAX_INVALID_CHOICES;
 
+/**
+ * Player turn starts with choosing between HIT, STAND and SPLIT.
+ * If card can yield more than one point than the player chooses which one to add.
+ * If Player chooses to split than a new hand is created which he can also deal cards to.
+ * A player is bust if he hits points more than the threshold.
+ */
 public class PlayerTurnProcessor implements TurnProcessor {
 
     private final InputDriver inputDriver;
@@ -38,6 +44,11 @@ public class PlayerTurnProcessor implements TurnProcessor {
         this.deck = deck;
     }
 
+    /**
+     * Consumer Implementation.
+     *
+     * @param player
+     */
     @Override
     public void accept(Player player) {
         List<PlayTerms> terms = new ArrayList<>(List.of(PlayTerms.HIT, PlayTerms.STAND));
@@ -48,12 +59,26 @@ public class PlayerTurnProcessor implements TurnProcessor {
         player.getSplitHand().ifPresent(splitHand -> playHand(player, splitHand, terms));
     }
 
+    /**
+     * Choose from bank terms
+     *
+     * @param player
+     * @param hand
+     * @param terms
+     */
     private void playHand(Player player, Hand hand, List<PlayTerms> terms) {
         outputDriver.askForPlayerTerms(player.getName(), hand.getPoints(), terms);
         var choice = Failsafe.with(Fallback.of(PlayTerms.BUST), retryPolicy).get(inputDriver::getPlayerChoice);
         processChoice(player, hand, choice);
     }
 
+    /**
+     * Process player choice.
+     *
+     * @param player
+     * @param hand
+     * @param choice
+     */
     private void processChoice(Player player, Hand hand, PlayTerms choice) {
         switch (choice) {
             case HIT:
@@ -73,6 +98,13 @@ public class PlayerTurnProcessor implements TurnProcessor {
         }
     }
 
+    /**
+     * If points can have different scores than the player is asked to choose which point to add.
+     *
+     * @param player
+     * @param hand
+     * @param card
+     */
     @Override
     public void choosePoints(Player player, Hand hand, Card card) {
         if (card.getPoints().size() > 1) {
@@ -89,15 +121,31 @@ public class PlayerTurnProcessor implements TurnProcessor {
         }
     }
 
+    /**
+     * Splits the hands. Adds a new hand to the player called Split Hand.
+     * If the player splits than the player will play a turn for each hand.
+     *
+     * @param player
+     */
     private void split(Player player) {
         player.split();
         outputDriver.notifyCardSplit(player);
     }
 
+    /**
+     * Event handler for one failed attempt.
+     *
+     * @param e
+     */
     private void handleInvalidChoice(ExecutionAttemptedEvent<Object> e) {
         outputDriver.notifyError(e.getLastFailure().getMessage());
     }
 
+    /**
+     * Event handler after all attempts for choice fail.
+     *
+     * @param ignored
+     */
     private void notifyBust(ExecutionCompletedEvent<Object> ignored) {
         outputDriver.notifyBust();
     }
