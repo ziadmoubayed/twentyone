@@ -26,19 +26,21 @@ public class BankTurnProcessor implements TurnProcessor {
     public void accept(Player player) {
         Card card = deck.deal();
         choosePoints(player, player.getHand(), card);
-        outputDriver.notifyCardAndPoints(player, card, player.getHand());
     }
 
     @Override
     public void choosePoints(Player player, Hand hand, Card card) {
         Integer pointsToAdd = null;
-        int currentPoints = player.getHand().getPoints();
+        int currentPoints = hand.getPoints();
         for (Integer possiblePoints : card.getPoints()) {
             int sum = currentPoints + possiblePoints;
             if (sum <= 21 && (pointsToAdd == null || sum > pointsToAdd)) {
                 pointsToAdd = possiblePoints;
             }
         }
-        player.getHand().hit(card, pointsToAdd);
+        if (pointsToAdd != null) {
+            hand.hit(card, pointsToAdd);
+            outputDriver.notifyCardAndPoints(player, card, player.getHand());
+        }
     }
 }

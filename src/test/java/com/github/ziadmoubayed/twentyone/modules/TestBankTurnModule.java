@@ -3,6 +3,8 @@ package com.github.ziadmoubayed.twentyone.modules;
 import com.github.ziadmoubayed.twentyone.actors.Card;
 import com.github.ziadmoubayed.twentyone.actors.Deck;
 import com.github.ziadmoubayed.twentyone.actors.players.Bank;
+import com.github.ziadmoubayed.twentyone.actors.players.Hand;
+import com.github.ziadmoubayed.twentyone.actors.players.Player;
 import com.github.ziadmoubayed.twentyone.engine.feedback.output.OutputDriver;
 import com.github.ziadmoubayed.twentyone.engine.modules.impl.BankTurnProcessor;
 import com.github.ziadmoubayed.twentyone.utils.Constants;
@@ -13,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestBankTurnModule {
@@ -21,6 +24,10 @@ public class TestBankTurnModule {
     Deck deck;
     @Mock
     OutputDriver outputDriver;
+    @Mock
+    Hand hand;
+    @Mock
+    Player player;
 
     Bank bank;
 
@@ -47,8 +54,21 @@ public class TestBankTurnModule {
 
     @Test
     public void bankShouldNotBustItselfWhenChoosingPoints() {
-        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), Card.ACE);
-        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), Card.ACE);
+        when(deck.deal()).thenReturn(Card.ACE);
+        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), deck.deal());
+        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), deck.deal());
         assertEquals(12, bank.getPoints());
+    }
+
+    @Test
+    public void bankShouldNotHitCardIfResultsInBust() {
+        when(deck.deal()).thenReturn(Card.SIX);
+        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), deck.deal());
+        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), deck.deal());
+        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), deck.deal());
+        assertEquals(18, bank.getPoints());
+        //bank now has 21
+        new BankTurnProcessor(deck, outputDriver).choosePoints(bank, bank.getHand(), deck.deal());
+        assertEquals(18, bank.getPoints());
     }
 }
